@@ -1,0 +1,19 @@
+version: '2'
+services:
+    sptas-app:
+        image: sptas
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:mysql://sptas-mysql:3306/sptas?useUnicode=true&characterEncoding=utf8&useSSL=false
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=sptas-elasticsearch:9300
+        ports:
+            - 8080:8080
+    sptas-mysql:
+        extends:
+            file: mysql.yml
+            service: sptas-mysql
+    sptas-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: sptas-elasticsearch
